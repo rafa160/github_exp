@@ -1,28 +1,26 @@
 import 'package:github_exp/models/repository.dart';
-import 'package:github_exp/models/user.dart';
-import 'package:github_exp/service/service.dart';
-import 'package:github_exp/service/user_service.dart';
+import 'package:github_exp/service/repository_service.dart';
 
 import 'package:mobx/mobx.dart';
 
 part 'search.g.dart';
 
-class Search = _Search with _$Search;
+class SearchRepository = _SearchRepository with _$SearchRepository;
 
-abstract class _Search with Store {
-
+abstract class _SearchRepository with Store {
   final Service _repositoryItem;
 
-  _Search(this._repositoryItem);
+  _SearchRepository(this._repositoryItem);
 
   @observable
   String query = '';
 
   @observable
-  ObservableFuture<Repository> results = ObservableFuture.value(new Repository(items: []));
+  ObservableFuture<Repository> results =
+      ObservableFuture.value(new Repository(items: []));
 
   @action
-  void setQuery(String name){
+  void setQuery(String name) {
     query = name;
   }
 
@@ -35,5 +33,4 @@ abstract class _Search with Store {
   void getUserRepositories(String url) {
     results = _repositoryItem.getReposUrl(url).asObservable();
   }
-
 }

@@ -21,13 +21,13 @@ class UsersScreen extends StatefulWidget {
 }
 
 class _UsersScreenState extends State<UsersScreen> {
-
   UserSearch _userSearch;
-  Search _search;
+  SearchRepository _search;
+
   @override
   void initState() {
     _userSearch = UserSearch(new UserRepository());
-    _search = Search(new RepositoryItem());
+    _search = SearchRepository(new RepositoryItem());
     super.initState();
   }
 
@@ -39,7 +39,10 @@ class _UsersScreenState extends State<UsersScreen> {
           children: [
             AppBar(
               backgroundColor: Colors.transparent,
-              title: Text( Strings.USERS_TITLE, style: TextStyle(color: Colors.black),),
+              title: Text(
+                Strings.USERS_TITLE,
+                style: TextStyle(color: Colors.black),
+              ),
               centerTitle: true,
             ),
             Container(
@@ -49,48 +52,70 @@ class _UsersScreenState extends State<UsersScreen> {
               ),
               margin: EdgeInsets.all(20),
               child: Padding(
-                padding: EdgeInsets.only(left: 10,right: 10),
+                padding: EdgeInsets.only(left: 10, right: 10),
                 child: TextField(
                   onChanged: _userSearch.setQuery,
                   onSubmitted: (s) => _userSearch.searchUser(),
                   decoration: InputDecoration(
-                      icon: Icon(Icons.search, color: Colors.deepPurple,),
+                      icon: Icon(
+                        Icons.search,
+                        color: Colors.deepPurple,
+                      ),
                       hintText: Strings.USERS_TEXT,
                       isDense: false,
                       border: InputBorder.none),
                 ),
               ),
             ),
-           Container(
-             width: MediaQuery.of(context).size.width * 1 ,
+            Container(
+              width: MediaQuery.of(context).size.width * 1,
               height: MediaQuery.of(context).size.height * 0.3,
               child: Observer(
-                builder: (_){
+                builder: (_) {
                   User user = _userSearch.results?.value;
-                  if(_userSearch.query.isEmpty){
+                  if (_userSearch.query.isEmpty) {
                     return EmptyContainer(
                       icon: Icon(Icons.person),
                     );
-                  } if(_userSearch.results.status == FutureStatus.rejected){
+                  }
+                  if (_userSearch.results.status == FutureStatus.rejected) {
                     return ErrorContainer(
                       errorMessage: Strings.USERS_ERROR,
                     );
-                  } else if (_userSearch.results.status == FutureStatus.pending){
+                  } else if (_userSearch.results.status ==
+                      FutureStatus.pending) {
                     return Container(
                       child: Center(
-                        child: CircularProgressIndicator(),
+                        child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation(Colors.deepPurple),
+                        ),
                       ),
                     );
                   }
                   return UserCard(
-                    image: user.login != null ? '${user.avatarUrl}' : Strings.USER_EMPTY_IMAGE,
-                    orgs: user .organizations != null  ? user.organizations : Strings.USER_CARD_NAME_ORG_EMPTY,
-                    local: user.location != null ? user.location : Strings.USER_LOCATION_TEXT_EMPTY,
-                    repositoriesNumbers: user.publicRepo.toString() != null ? user.publicRepo.toString() : Strings.USER_NUMBER_CARD_EMPTY,
-                    followers: user.followers.toString() != null ? user.followers.toString() : Strings.USER_NUMBER_CARD_EMPTY,
-                    stars: user.starts.toString() != null ? user.starts.toString() : Strings.USER_NUMBER_CARD_EMPTY,
-                    onTap: (){
-                      Navigator.of(context).push(MaterialPageRoute(builder: (_)=> UserDetailsRepositories(reposUrl: user.reposUrl,)));
+                    image: user.login != null
+                        ? '${user.avatarUrl}'
+                        : Strings.USER_EMPTY_IMAGE,
+                    bio: user.bio != null
+                        ? user.bio
+                        : Strings.USER_CARD_NAME_BIO_EMPTY,
+                    local: user.location != null
+                        ? user.location
+                        : Strings.USER_LOCATION_TEXT_EMPTY,
+                    repositoriesNumbers: user.publicRepo.toString() != null
+                        ? user.publicRepo.toString()
+                        : Strings.USER_NUMBER_CARD_EMPTY,
+                    followers: user.followers.toString() != null
+                        ? user.followers.toString()
+                        : Strings.USER_NUMBER_CARD_EMPTY,
+                    stars: user.starts.toString() != null
+                        ? user.starts.toString()
+                        : Strings.USER_NUMBER_CARD_EMPTY,
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (_) => UserDetailsRepositories(
+                                reposUrl: user.reposUrl,
+                              )));
                     },
                   );
                 },

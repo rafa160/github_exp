@@ -7,7 +7,6 @@ part 'user_search.g.dart';
 class UserSearch = _UserSearch with _$UserSearch;
 
 abstract class _UserSearch with Store {
-
   final UserService _userService;
 
   _UserSearch(this._userService);
@@ -16,10 +15,11 @@ abstract class _UserSearch with Store {
   String query = '';
 
   @observable
-  ObservableFuture<User> results = ObservableFuture.value(new User(login: null));
+  ObservableFuture<User> results =
+      ObservableFuture.value(new User(login: null));
 
   @action
-  void setQuery(String name){
+  void setQuery(String name) {
     query = name;
   }
 
@@ -27,5 +27,4 @@ abstract class _UserSearch with Store {
   void searchUser() {
     results = _userService.getUserByLogin(query).asObservable();
   }
-
 }

@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 
 import 'package:github_exp/models/user.dart';
@@ -10,28 +9,24 @@ class UserRepository implements UserService {
 
   @override
   Future<User> getUsers(String name) async {
-    try{
-      final response = await dio.get(GitHubApi.searchUsers, queryParameters: {
-        "q": name
-      });
+    try {
+      final response =
+          await dio.get(GitHubApi.searchUsers, queryParameters: {"q": name});
       return User.fromJson(response.data);
-    } catch (e){
+    } catch (e) {
       print(e);
       rethrow;
     }
   }
 
   Future<User> getUserByLogin(String name) async {
-
-    try{
-      final response = await dio.get('${GitHubApi.users}${name}', options: Options(
-        headers: {'Authorzation': GitHubApi.token}
-      ));
+    try {
+      final response = await dio.get('${GitHubApi.users}${name}',
+          options: Options(headers: {'Authorzation': GitHubApi.token}));
       return User.fromJson(response.data);
-    } catch (e){
+    } catch (e) {
       print(e);
       rethrow;
     }
   }
-
 }

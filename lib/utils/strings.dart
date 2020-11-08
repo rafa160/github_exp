@@ -20,11 +20,13 @@ class Strings {
   static const String REPOSITORIES_LANGUAGE_CARD_EMPTY = 'sem informação';
 
   //card user empty info
-  static const String USER_CARD_NAME_ORG_EMPTY = 'url não encontrada';
+  static const String USER_CARD_NAME_BIO_EMPTY = 'sem bio';
   static const String USER_LOCATION_TEXT_EMPTY = 'localização não encontrada';
   static const String USER_NUMBER_CARD_EMPTY = '0';
   static const String USER_EMPTY_IMAGE = 'https://www.segurofacil.com.br/content/images/default-user.png';
 
-
-
+  //images background
+  static const String BACKGROUND_IMAGE_TOP = 'assets/main_top.png';
+  static const String BACKGROUND_IMAGE_BOTTOM = 'assets/main_bottom.png';
+  static const String BACKGROUND_IMAGE_BOTTOM_TWO = 'assets/login_bottom.png';
 }

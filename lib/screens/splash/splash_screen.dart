@@ -10,10 +10,10 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   Future<void> _nextPage() async {
-    Future.delayed(Duration(seconds: 5),(){
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => UsersScreen()));
+    Future.delayed(Duration(seconds: 5), () {
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (_) => UsersScreen()));
     });
   }
 
@@ -21,9 +21,12 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      child:  Center(
-          child: SvgPicture.asset('assets/githublog.svg', height: 150,),
+      child: Center(
+        child: SvgPicture.asset(
+          'assets/githublog.svg',
+          height: 150,
         ),
+      ),
     );
   }
 

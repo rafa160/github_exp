@@ -8,8 +8,8 @@ part of 'search.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$Search on _Search, Store {
-  final _$queryAtom = Atom(name: '_Search.query');
+mixin _$SearchRepository on _SearchRepository, Store {
+  final _$queryAtom = Atom(name: '_SearchRepository.query');
 
   @override
   String get query {
@@ -24,7 +24,7 @@ mixin _$Search on _Search, Store {
     });
   }
 
-  final _$resultsAtom = Atom(name: '_Search.results');
+  final _$resultsAtom = Atom(name: '_SearchRepository.results');
 
   @override
   ObservableFuture<Repository> get results {
@@ -39,38 +39,39 @@ mixin _$Search on _Search, Store {
     });
   }
 
-  final _$_SearchActionController = ActionController(name: '_Search');
+  final _$_SearchRepositoryActionController =
+      ActionController(name: '_SearchRepository');
 
   @override
   void setQuery(String name) {
-    final _$actionInfo =
-        _$_SearchActionController.startAction(name: '_Search.setQuery');
+    final _$actionInfo = _$_SearchRepositoryActionController.startAction(
+        name: '_SearchRepository.setQuery');
     try {
       return super.setQuery(name);
     } finally {
-      _$_SearchActionController.endAction(_$actionInfo);
+      _$_SearchRepositoryActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void searchRepository() {
-    final _$actionInfo =
-        _$_SearchActionController.startAction(name: '_Search.searchRepository');
+    final _$actionInfo = _$_SearchRepositoryActionController.startAction(
+        name: '_SearchRepository.searchRepository');
     try {
       return super.searchRepository();
     } finally {
-      _$_SearchActionController.endAction(_$actionInfo);
+      _$_SearchRepositoryActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void getUserRepositories(String url) {
-    final _$actionInfo = _$_SearchActionController.startAction(
-        name: '_Search.getUserRepositories');
+    final _$actionInfo = _$_SearchRepositoryActionController.startAction(
+        name: '_SearchRepository.getUserRepositories');
     try {
       return super.getUserRepositories(url);
     } finally {
-      _$_SearchActionController.endAction(_$actionInfo);
+      _$_SearchRepositoryActionController.endAction(_$actionInfo);
     }
   }
 

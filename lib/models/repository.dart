@@ -14,7 +14,7 @@ class Repository {
   factory Repository.fromJson(List<dynamic> jsonArray) {
     List<RepositoryItem> items = [];
     for (var i = 0; i < jsonArray.length; i++) {
-     items.add(RepositoryItem.fromJson(jsonArray[i]));
+      items.add(RepositoryItem.fromJson(jsonArray[i]));
     }
     return Repository(
       items: items,
@@ -30,5 +30,3 @@ class Repository {
     return 'Repository{items: $items}';
   }
 }
-
-

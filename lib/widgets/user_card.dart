@@ -4,7 +4,7 @@ import 'package:github_exp/widgets/card_description.dart';
 
 class UserCard extends StatelessWidget {
   final String image;
-  final String orgs;
+  final String bio;
   final String local;
   final String followers;
   final String repositoriesNumbers;
@@ -14,7 +14,7 @@ class UserCard extends StatelessWidget {
   const UserCard(
       {Key key,
       this.image,
-      this.orgs,
+      this.bio,
       this.local,
       this.followers,
       this.repositoriesNumbers,
@@ -43,7 +43,7 @@ class UserCard extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(20.0, 0.0, 2.0, 0.0),
                     child: CardDescription(
-                      title: orgs,
+                      title: bio,
                       subtitle: local,
                       infoOne: followers,
                       infoTwo: repositoriesNumbers,

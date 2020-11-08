@@ -2,36 +2,34 @@ import 'package:dio/dio.dart';
 import 'package:github_exp/models/repository.dart';
 
 import 'package:github_exp/routes/github_api.dart';
-import 'package:github_exp/service/service.dart';
-
+import 'package:github_exp/service/repository_service.dart';
 
 class RepositoryItem implements Service {
   Dio dio = new Dio();
 
   @override
   Future<Repository> getRepositories(String name) async {
-    try{
-      final response = await dio.get(GitHubApi.repositories, queryParameters: {
-        "q": name
-      });
+    try {
+      final response =
+          await dio.get(GitHubApi.repositories, queryParameters: {"q": name});
       return Repository.fromJson(response.data);
-    } catch (e){
+    } catch (e) {
       print(e);
       rethrow;
     }
   }
 
   Future<Repository> getReposUrl(String repoUrl) async {
-    try{
-      final response = await dio.get(repoUrl, options: Options(
-          headers: {'Authorzation': GitHubApi.token}
-      ));
+    try {
+      final response = await dio.get(repoUrl,
+          options: Options(
+            headers: {'Authorzation': GitHubApi.token},
+          ));
       print(response.data);
       return Repository.fromJson(response.data);
-    }catch (e){
+    } catch (e) {
       print(e);
       rethrow;
     }
   }
-
 }
