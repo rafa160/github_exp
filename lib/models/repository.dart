@@ -1,27 +1,34 @@
 import 'package:github_exp/models/repository_item.dart';
 import 'dart:convert';
 
-Repository repositoriesFromJson(String str) => Repository.fromJson(json.decode(str));
+Repository repositoriesFromJson(String str) =>
+    Repository.fromJson(json.decode(str));
 
 String repositoriesToJson(Repository data) => json.encode(data.toJson());
 
 class Repository {
-
-  int totalCount;
   List<RepositoryItem> items;
 
+  Repository({this.items});
 
-  Repository({this.totalCount, this.items});
-
-  factory Repository.fromJson(Map<String,dynamic> json){
+  factory Repository.fromJson(List<dynamic> jsonArray) {
+    List<RepositoryItem> items = [];
+    for (var i = 0; i < jsonArray.length; i++) {
+     items.add(RepositoryItem.fromJson(jsonArray[i]));
+    }
     return Repository(
-        totalCount: json['total_count'],
-        items: List<RepositoryItem>.from(json['items'].map((e) => RepositoryItem.fromJson(e))),
+      items: items,
     );
   }
 
   Map<String, dynamic> toJson() => {
-    "total_count": totalCount,
-    "items": List<dynamic>.from(items.map((x) => x.toJson())),
-  };
+        "items": List<dynamic>.from(items.map((x) => x.toJson())),
+      };
+
+  @override
+  String toString() {
+    return 'Repository{items: $items}';
+  }
 }
+
+

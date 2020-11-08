@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:github_exp/mobx_stores/user_search.dart';
+import 'package:github_exp/models/repository.dart';
 import 'package:github_exp/models/user.dart';
+import 'package:github_exp/screens/users/user_details_repositories.dart';
 import 'package:github_exp/service/user_repository.dart';
 import 'package:github_exp/utils/background_screen/background_one.dart';
 import 'package:github_exp/utils/strings.dart';
@@ -10,6 +12,8 @@ import 'package:github_exp/widgets/empty_container.dart';
 import 'package:github_exp/widgets/error_container.dart';
 import 'package:github_exp/widgets/user_card.dart';
 import 'package:mobx/mobx.dart';
+import 'package:github_exp/mobx_stores/search.dart';
+import 'package:github_exp/service/repo_repository.dart';
 
 class UsersScreen extends StatefulWidget {
   @override
@@ -19,11 +23,11 @@ class UsersScreen extends StatefulWidget {
 class _UsersScreenState extends State<UsersScreen> {
 
   UserSearch _userSearch;
-
-
+  Search _search;
   @override
   void initState() {
     _userSearch = UserSearch(new UserRepository());
+    _search = Search(new RepositoryItem());
     super.initState();
   }
 
@@ -85,6 +89,9 @@ class _UsersScreenState extends State<UsersScreen> {
                     repositoriesNumbers: user.publicRepo.toString() != null ? user.publicRepo.toString() : Strings.USER_NUMBER_CARD_EMPTY,
                     followers: user.followers.toString() != null ? user.followers.toString() : Strings.USER_NUMBER_CARD_EMPTY,
                     stars: user.starts.toString() != null ? user.starts.toString() : Strings.USER_NUMBER_CARD_EMPTY,
+                    onTap: (){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (_)=> UserDetailsRepositories(reposUrl: user.reposUrl,)));
+                    },
                   );
                 },
               ),

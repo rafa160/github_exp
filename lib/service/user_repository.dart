@@ -1,6 +1,6 @@
 
 import 'package:dio/dio.dart';
-import 'package:github_exp/models/repository.dart';
+
 import 'package:github_exp/models/user.dart';
 import 'package:github_exp/routes/github_api.dart';
 import 'package:github_exp/service/user_service.dart';

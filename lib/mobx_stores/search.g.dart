@@ -64,6 +64,17 @@ mixin _$Search on _Search, Store {
   }
 
   @override
+  void getUserRepositories(String url) {
+    final _$actionInfo = _$_SearchActionController.startAction(
+        name: '_Search.getUserRepositories');
+    try {
+      return super.getUserRepositories(url);
+    } finally {
+      _$_SearchActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 query: ${query},

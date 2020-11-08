@@ -27,4 +27,5 @@ abstract class _UserSearch with Store {
   void searchUser() {
     results = _userService.getUserByLogin(query).asObservable();
   }
+
 }

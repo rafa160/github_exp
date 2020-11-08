@@ -21,11 +21,12 @@ class RepositoryItem implements Service {
     }
   }
 
-  Future<Repository> getRepositoryByUser(String name) async {
+  Future<Repository> getReposUrl(String repoUrl) async {
     try{
-      final response = await dio.get('${GitHubApi.users}${name}/repos', options: Options(
-        headers: {'Authorzation': GitHubApi.token}
+      final response = await dio.get(repoUrl, options: Options(
+          headers: {'Authorzation': GitHubApi.token}
       ));
+      print(response.data);
       return Repository.fromJson(response.data);
     }catch (e){
       print(e);

@@ -30,4 +30,10 @@ abstract class _Search with Store {
   void searchRepository() {
     results = _repositoryItem.getRepositories(query).asObservable();
   }
+
+  @action
+  void getUserRepositories(String url) {
+    results = _repositoryItem.getReposUrl(url).asObservable();
+  }
+
 }
