@@ -29,4 +29,10 @@ class Strings {
   static const String BACKGROUND_IMAGE_TOP = 'assets/main_top.png';
   static const String BACKGROUND_IMAGE_BOTTOM = 'assets/main_bottom.png';
   static const String BACKGROUND_IMAGE_BOTTOM_TWO = 'assets/login_bottom.png';
+
+  //card infos
+  static const String USER_CARD_LOCATION = 'Localização: ';
+  static const String USER_CARD_FOLLOWERS = 'Seguidores: ';
+  static const String USER_CARD_REPOS =  'Repositórios: ';
+  static const String USER_CARD_STARS = '-  Estrelas: ';
 }

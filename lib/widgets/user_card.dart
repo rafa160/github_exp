@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:github_exp/widgets/card_description.dart';
+import 'package:github_exp/utils/strings.dart';
 
 class UserCard extends StatelessWidget {
   final String image;
@@ -18,43 +18,76 @@ class UserCard extends StatelessWidget {
       this.local,
       this.followers,
       this.repositoriesNumbers,
-      this.stars,this.onTap})
+      this.stars,
+      this.onTap})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 4),
-        child: Card(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(left: 10),
-                  child: Image(
-                    image: NetworkImage(image),
-                    height: 210,
-                    width: 170,
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20.0, 0.0, 2.0, 0.0),
-                    child: CardDescription(
-                      title: bio,
-                      subtitle: local,
-                      infoOne: followers,
-                      infoTwo: repositoriesNumbers,
-                      lastOne: stars,
-                    ),
-                  ),
-                )
-              ],
-            ),
+      child: Card(
+        elevation: 2,
+        clipBehavior: Clip.antiAlias,
+        margin: EdgeInsets.all(10),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
         ),
-      ),
+        child: Padding(
+          padding: EdgeInsets.only(left: 10, top: 10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              ClipOval(
+                child: Image(
+                  image: NetworkImage(image),
+                  height:
+                  MediaQuery.of(context).size.height * 0.1,
+                  width:
+                  MediaQuery.of(context).size.width * 0.2,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Text(
+                      bio,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      '${Strings.USER_CARD_LOCATION}$local',
+                      style: const TextStyle(
+                        fontSize: 12.0,
+                        color: Colors.black54,
+                      ),
+                    ),
+                    Text(
+                      '${Strings.USER_CARD_FOLLOWERS}$followers',
+                      style: const TextStyle(
+                        fontSize: 12.0,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    Text(
+                      '${Strings.USER_CARD_REPOS}$repositoriesNumbers ${Strings.USER_CARD_STARS} $stars',
+                      style: const TextStyle(
+                        fontSize: 12.0,
+                        color: Colors.black54,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      )
     );
   }
 }

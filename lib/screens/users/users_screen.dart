@@ -34,94 +34,97 @@ class _UsersScreenState extends State<UsersScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BackgroundOne(
-        child: Column(
-          children: [
-            AppBar(
-              backgroundColor: Colors.transparent,
-              title: Text(
-                Strings.USERS_TITLE,
-                style: TextStyle(color: Colors.black),
+      body: SingleChildScrollView(
+        // physics: NeverScrollableScrollPhysics(),
+        child: BackgroundOne(
+          child: Column(
+            children: [
+              AppBar(
+                backgroundColor: Colors.transparent,
+                title: Text(
+                  Strings.USERS_TITLE,
+                  style: TextStyle(color: Colors.black),
+                ),
+                centerTitle: true,
               ),
-              centerTitle: true,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.deepPurple.withAlpha(100),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              margin: EdgeInsets.all(20),
-              child: Padding(
-                padding: EdgeInsets.only(left: 10, right: 10),
-                child: TextField(
-                  onChanged: _userSearch.setQuery,
-                  onSubmitted: (s) => _userSearch.searchUser(),
-                  decoration: InputDecoration(
-                      icon: Icon(
-                        Icons.search,
-                        color: Colors.deepPurple,
-                      ),
-                      hintText: Strings.USERS_TEXT,
-                      isDense: false,
-                      border: InputBorder.none),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.deepPurple.withAlpha(100),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                margin: EdgeInsets.all(20),
+                child: Padding(
+                  padding: EdgeInsets.only(left: 10, right: 10),
+                  child: TextField(
+                    onChanged: _userSearch.setQuery,
+                    onSubmitted: (s) => _userSearch.searchUser(),
+                    decoration: InputDecoration(
+                        icon: Icon(
+                          Icons.search,
+                          color: Colors.deepPurple,
+                        ),
+                        hintText: Strings.USERS_TEXT,
+                        isDense: false,
+                        border: InputBorder.none),
+                  ),
                 ),
               ),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width * 1,
-              height: MediaQuery.of(context).size.height * 0.3,
-              child: Observer(
-                builder: (_) {
-                  User user = _userSearch.results?.value;
-                  if (_userSearch.query.isEmpty) {
-                    return EmptyContainer(
-                      icon: Icon(Icons.person),
-                    );
-                  }
-                  if (_userSearch.results.status == FutureStatus.rejected) {
-                    return ErrorContainer(
-                      errorMessage: Strings.USERS_ERROR,
-                    );
-                  } else if (_userSearch.results.status ==
-                      FutureStatus.pending) {
-                    return Container(
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation(Colors.deepPurple),
+              Container(
+                width: MediaQuery.of(context).size.width * 1,
+                height: MediaQuery.of(context).size.height * 0.3,
+                child: Observer(
+                  builder: (_) {
+                    User user = _userSearch.results?.value;
+                    if (_userSearch.query.isEmpty) {
+                      return EmptyContainer(
+                        icon: Icon(Icons.person),
+                      );
+                    }
+                    if (_userSearch.results.status == FutureStatus.rejected) {
+                      return ErrorContainer(
+                        errorMessage: Strings.USERS_ERROR,
+                      );
+                    } else if (_userSearch.results.status ==
+                        FutureStatus.pending) {
+                      return Container(
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation(Colors.deepPurple),
+                          ),
                         ),
-                      ),
+                      );
+                    }
+                    return UserCard(
+                      image: user.login != null
+                          ? '${user.avatarUrl}'
+                          : Strings.USER_EMPTY_IMAGE,
+                      bio: user.bio != null
+                          ? user.bio
+                          : Strings.USER_CARD_NAME_BIO_EMPTY,
+                      local: user.location != null
+                          ? user.location
+                          : Strings.USER_LOCATION_TEXT_EMPTY,
+                      repositoriesNumbers: user.publicRepo.toString() != null
+                          ? user.publicRepo.toString()
+                          : Strings.USER_NUMBER_CARD_EMPTY,
+                      followers: user.followers.toString() != null
+                          ? user.followers.toString()
+                          : Strings.USER_NUMBER_CARD_EMPTY,
+                      stars: user.starts.toString() != null
+                          ? user.starts.toString()
+                          : Strings.USER_NUMBER_CARD_EMPTY,
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (_) => UserDetailsRepositories(
+                                  reposUrl: user.reposUrl,
+                                )));
+                      },
                     );
-                  }
-                  return UserCard(
-                    image: user.login != null
-                        ? '${user.avatarUrl}'
-                        : Strings.USER_EMPTY_IMAGE,
-                    bio: user.bio != null
-                        ? user.bio
-                        : Strings.USER_CARD_NAME_BIO_EMPTY,
-                    local: user.location != null
-                        ? user.location
-                        : Strings.USER_LOCATION_TEXT_EMPTY,
-                    repositoriesNumbers: user.publicRepo.toString() != null
-                        ? user.publicRepo.toString()
-                        : Strings.USER_NUMBER_CARD_EMPTY,
-                    followers: user.followers.toString() != null
-                        ? user.followers.toString()
-                        : Strings.USER_NUMBER_CARD_EMPTY,
-                    stars: user.starts.toString() != null
-                        ? user.starts.toString()
-                        : Strings.USER_NUMBER_CARD_EMPTY,
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (_) => UserDetailsRepositories(
-                                reposUrl: user.reposUrl,
-                              )));
-                    },
-                  );
-                },
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

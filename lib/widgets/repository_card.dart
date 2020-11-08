@@ -27,21 +27,24 @@ class RepositoryCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(15.0),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 16, horizontal: 4),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  repositoryName,
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w700
+          Container(
+            height: 50,
+            margin: EdgeInsets.only(bottom: 20),
+              color: Colors.deepPurple.withAlpha(100),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    repositoryName,
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700
+                    ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
           ),
           Padding(
             padding: EdgeInsets.only(left: 5,right: 5),
@@ -53,7 +56,7 @@ class RepositoryCard extends StatelessWidget {
               )
           ),
           Padding(
-            padding: EdgeInsets.only(top: 10, bottom: 10,left: 20, right: 20),
+            padding: EdgeInsets.only(top: 10, bottom: 10,left: 40, right: 40),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
