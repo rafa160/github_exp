@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:github_exp/screens/home/home_screen.dart';
 import 'package:github_exp/screens/root_screen.dart';
-import 'package:github_exp/screens/splash/splash_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'GitHub Exemple',
+      title: 'GitHub Example',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         appBarTheme: AppBarTheme(

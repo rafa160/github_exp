@@ -1,19 +1,21 @@
+
 class User {
 
-  final int id;
-  final String login;
-  final String email;
-  final String avatarUrl;
-  final int followers;
-  final int followings;
-  final int publicRepo;
-  final int starts;
-  final String organizations;
+   int id;
+   String login;
+   String email;
+   String avatarUrl;
+   String location;
+   int followers;
+   int followings;
+   int publicRepo;
+   int starts;
+   String organizations;
 
-  User({this.id, this.login,this.email, this.avatarUrl, this.followers, this.followings, this.publicRepo, this.starts, this.organizations});
+  User({this.id, this.login,this.email, this.avatarUrl, this.followers, this.followings, this.publicRepo, this.starts, this.organizations,this.location});
 
 
-  static User fromJson(Map<String,dynamic> json){
+  factory User.fromJson(Map<String,dynamic> json){
     return User(
       login: json['login'],
       email: json['email'],
@@ -22,7 +24,20 @@ class User {
       followings: json['following'],
       publicRepo: json['public_repos'],
       organizations: json['organizations_url'],
+      location: json['location']
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'login': login,
+    'email': email,
+    'avatar_url': avatarUrl,
+    'followers': followers,
+    'following': followings,
+    'public_repos': publicRepo,
+    'organizations_url': organizations,
+    'location': location,
+  };
 
 }

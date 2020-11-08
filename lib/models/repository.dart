@@ -1,37 +1,27 @@
+import 'package:github_exp/models/repository_item.dart';
+import 'dart:convert';
+
+Repository repositoriesFromJson(String str) => Repository.fromJson(json.decode(str));
+
+String repositoriesToJson(Repository data) => json.encode(data.toJson());
+
 class Repository {
 
-  final int id;
-  final String name;
-  final String description;
-  final int stars;
-  final String url;
+  int totalCount;
+  List<RepositoryItem> items;
 
-  Repository({this.id, this.name, this.description, this.stars, this.url});
 
-  @override
-  List<Object> get props => [
-    id,
-    name,
-    description,
-    stars,
-    url
-  ];
+  Repository({this.totalCount, this.items});
 
   factory Repository.fromJson(Map<String,dynamic> json){
     return Repository(
-      id: json['id'] as int,
-      name: json['name'] as String,
-      description: json['description'] as String,
-      stars: json['stargazers_count'] as int,
-      url: json['html_url'] as String,
+        totalCount: json['total_count'],
+        items: List<RepositoryItem>.from(json['items'].map((e) => RepositoryItem.fromJson(e))),
     );
   }
 
-  static List<Repository> fromJsonArray(dynamic jsonArray){
-    List<Repository> repositories = new List<Repository>();
-    for(var i = 0; i< jsonArray['items'].length; i++){
-      repositories.add(Repository.fromJson(jsonArray['items'][i]));
-    }
-    return repositories;
-  }
+  Map<String, dynamic> toJson() => {
+    "total_count": totalCount,
+    "items": List<dynamic>.from(items.map((x) => x.toJson())),
+  };
 }
